@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # chat.sfu-code.club
 
 A web chat app developed by SFU Code for members to build development skills.
@@ -2578,8 +2577,3 @@ If you're seeing this error, you're likely using an old version of `react-script
 ## Something Missing?
 
 If you have ideas for more “How To” recipes that should be on this page, [let us know](https://github.com/facebook/create-react-app/issues) or [contribute some!](https://github.com/facebook/create-react-app/edit/master/packages/react-scripts/template/README.md)
-=======
-# sfu-code.chat
-
-sfu-code.chat is a web chat app developed by SFU Code as a learning project for React.
->>>>>>> e553a9910726507e7046da5afd507a57412d8b8f
