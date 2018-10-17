@@ -1,3 +1,15 @@
+# chat.sfu-code.club
+
+A web chat app developed by SFU Code for members to build development skills.
+
+## Contributing
+
+Check out the [`development`](https://github.com/sfu-code/chat.sfu-code.club/tree/development) branch, where all the action is.
+
+## create-react-app readme
+
+Below is the readme that comes with create-react-app.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 Below you will find some information on how to perform common tasks.<br>
