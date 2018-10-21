@@ -4,7 +4,7 @@
 
 ## What is it?
 
-As an opportunity for club members to get familiar with React, we started this chat app. The goal of the project is to provide an introduction to React development in the form of a chat web app.
+The goal of the project is to provide an introduction to React development in the form of a chat web app.
 
 ## Development
 
