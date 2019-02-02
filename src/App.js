@@ -13,44 +13,44 @@ class App extends Component {
   componentWillMount(){
     this.socket = io.connect('http://localhost:8000');
     this.socket.on('message',this.handleMessage);
-    AWS.config.update({
-      region: "us-east-2",
-      accessKeyId: "AKIAJ57U7P6OM2J2YTDA",
-      secretAccessKey: "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"
-    });
-    this.docClient = new AWS.DynamoDB.DocumentClient();
-    this.params = {
-      TableName: 'Chats',
-    }
-    this.docClient.scan(this.params,this.onScan);
+    // AWS.config.update({
+    //   region: "us-east-2",
+    //   accessKeyId: "",
+    //   secretAccessKey: ""
+    // });
+    // this.docClient = new AWS.DynamoDB.DocumentClient();
+    // this.params = {
+    //   TableName: 'Chats',
+    // }
+    // this.docClient.scan(this.params,this.onScan);
   }
 
-  onScan = (err, data) => {
-    if (err) {
-        console.error("Unable to scan the table. Error JSON:", JSON.stringify(err, null, 2));
-    } else {
-        // print all the movies
-        console.log("Scan succeeded.");
-        data.Items.forEach( message => {
-          const messages = {
-            id: message.id,
-            value: message.Msg,
-          }
-           this.setState(state => ({
-            field: '',
-            messages: state.messages.concat(messages)
-          }))
-        });
+  // onScan = (err, data) => {
+  //   if (err) {
+  //       console.error("Unable to scan the table. Error JSON:", JSON.stringify(err, null, 2));
+  //   } else {
+  //       // print all the movies
+  //       console.log("Scan succeeded.");
+  //       data.Items.forEach( message => {
+  //         const messages = {
+  //           id: message.id,
+  //           value: message.Msg,
+  //         }
+  //          this.setState(state => ({
+  //           field: '',
+  //           messages: state.messages.concat(messages)
+  //         }))
+  //       });
 
-        // continue scanning if we have more movies, because
-        // scan can retrieve a maximum of 1MB of data
-        if (typeof data.LastEvaluatedKey != "undefined") {
-            console.log("Scanning for more...");
-            this.params.ExclusiveStartKey = data.LastEvaluatedKey;
-            this.docClient.scan(this.params, this.onScan);
-        }
-    }
-  }
+  //       // continue scanning if we have more movies, because
+  //       // scan can retrieve a maximum of 1MB of data
+  //       if (typeof data.LastEvaluatedKey != "undefined") {
+  //           console.log("Scanning for more...");
+  //           this.params.ExclusiveStartKey = data.LastEvaluatedKey;
+  //           this.docClient.scan(this.params, this.onScan);
+  //       }
+  //   }
+  // }
 
   handleMessage = (message) => {
     this.setState(state => ({ messages: state.messages.concat(message) }))
@@ -69,20 +69,20 @@ class App extends Component {
       value: this.state.field,
     }
 
-    var params = {
-      TableName: 'Chats',
-      Item:{
-        'Msg': message.value,
-        'Id':id
-      }
-    }
-    this.docClient.put(params, (err,data) =>{
-      if (err) {
-        console.error("Unable to add item. Error JSON:", JSON.stringify(err, null, 2));
-      } else {
-        console.log("Added item:", JSON.stringify(data, null, 2));
-    }
-    })
+    // var params = {
+    //   TableName: 'Chats',
+    //   Item:{
+    //     'Msg': message.value,
+    //     'Id':id
+    //   }
+    // }
+    // this.docClient.put(params, (err,data) =>{
+    //   if (err) {
+    //     console.error("Unable to add item. Error JSON:", JSON.stringify(err, null, 2));
+    //   } else {
+    //     console.log("Added item:", JSON.stringify(data, null, 2));
+    // }
+    // })
 
     this.socket.emit('message',message)
 
