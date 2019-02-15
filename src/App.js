@@ -16,7 +16,7 @@ class App extends Component {
       console.log("A user Connected");
     })
     this.socket.on('message',this.handleMessage);
-    
+
   }
 
   handleMessage = (message) => {
@@ -48,21 +48,26 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
-          <ul>
+      <div className = "App">
+          <ul >
             {this.state.messages.map(message =>
-              <li key={message.id}>{message.value}</li>
+              <div className = "msg-box">
+                <li id = "msg" key={message.id}>{message.value}</li>
+              </div>
             )}
           </ul>
-          <form onSubmit={this.handleSubmit}>
-            <input
-              onChange={this.handleChange}
-              type="text"
-              placeholder="Hello world!"
-              value={this.state.field}
-            />
-            <button>Send</button>
-          </form>
+          <div className = "Box-and-Btn">
+            <form onSubmit={this.handleSubmit}>
+              <input
+                id= "input"
+                onChange={this.handleChange}
+                type="text"
+                placeholder="Hello world!"
+                value={this.state.field}
+              />
+              <button id = "button">Send</button>
+            </form>
+          </div>
       </div>
     );
   }
