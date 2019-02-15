@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import AWS from 'aws-sdk';
+
 import './App.css';
 import io from 'socket.io-client';
 
@@ -12,45 +12,12 @@ class App extends Component {
 
   componentWillMount(){
     this.socket = io.connect('http://localhost:8000');
+    this.socket.on('connect', () =>{
+      console.log("A user Connected");
+    })
     this.socket.on('message',this.handleMessage);
-    // AWS.config.update({
-    //   region: "us-east-2",
-    //   accessKeyId: "",
-    //   secretAccessKey: ""
-    // });
-    // this.docClient = new AWS.DynamoDB.DocumentClient();
-    // this.params = {
-    //   TableName: 'Chats',
-    // }
-    // this.docClient.scan(this.params,this.onScan);
+    
   }
-
-  // onScan = (err, data) => {
-  //   if (err) {
-  //       console.error("Unable to scan the table. Error JSON:", JSON.stringify(err, null, 2));
-  //   } else {
-  //       // print all the movies
-  //       console.log("Scan succeeded.");
-  //       data.Items.forEach( message => {
-  //         const messages = {
-  //           id: message.id,
-  //           value: message.Msg,
-  //         }
-  //          this.setState(state => ({
-  //           field: '',
-  //           messages: state.messages.concat(messages)
-  //         }))
-  //       });
-
-  //       // continue scanning if we have more movies, because
-  //       // scan can retrieve a maximum of 1MB of data
-  //       if (typeof data.LastEvaluatedKey != "undefined") {
-  //           console.log("Scanning for more...");
-  //           this.params.ExclusiveStartKey = data.LastEvaluatedKey;
-  //           this.docClient.scan(this.params, this.onScan);
-  //       }
-  //   }
-  // }
 
   handleMessage = (message) => {
     this.setState(state => ({ messages: state.messages.concat(message) }))
@@ -63,26 +30,10 @@ class App extends Component {
   handleSubmit = event =>{
     event.preventDefault()
     var dt = new Date();
-    var id = dt.getTime();
     const message = {
       id: dt.getTime(),
       value: this.state.field,
     }
-
-    // var params = {
-    //   TableName: 'Chats',
-    //   Item:{
-    //     'Msg': message.value,
-    //     'Id':id
-    //   }
-    // }
-    // this.docClient.put(params, (err,data) =>{
-    //   if (err) {
-    //     console.error("Unable to add item. Error JSON:", JSON.stringify(err, null, 2));
-    //   } else {
-    //     console.log("Added item:", JSON.stringify(data, null, 2));
-    // }
-    // })
 
     this.socket.emit('message',message)
 
